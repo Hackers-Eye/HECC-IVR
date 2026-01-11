@@ -7,9 +7,6 @@ It is professional, clear, and structured for maximum visibility and understandi
 ```markdown
 # HECC-IVR
 
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
-[![Twilio](https://img.shields.io/badge/twilio-supported-red)](https://www.twilio.com/)
 
 **Hackers Eye Cyber Community — Interactive Voice Response (IVR) System**
 
