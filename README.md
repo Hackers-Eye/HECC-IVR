@@ -1,229 +1,207 @@
-🛡️ Hacker's-Eye IVR Control Node
 
-Cybersecurity-focused Interactive Voice Response (IVR) system built for telecom labs, OSINT research, and authorized security simulations.
 
-Hackerseye IVR Control Node is a hacker-themed, lab-grade IVR platform built with Flask + Twilio that enables controlled call flows, speech and DTMF capture, real-time monitoring, and outbound call triggering — designed strictly for ethical and legal testing environments.
+It is professional, clear, and structured for maximum visibility and understanding by developers and collaborators.
 
-🚀 Features
+---
 
-☎️ Twilio-powered IVR engine
+```markdown
+# HECC-IVR
 
-🧭 Multi-level menu system (Support / Training / Message)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
+[![Twilio](https://img.shields.io/badge/twilio-supported-red)](https://www.twilio.com/)
 
-🔢 DTMF + 🎤 Speech recognition
+**Hackers Eye Cyber Community — Interactive Voice Response (IVR) System**
 
-📞 Call recording enabled
+A powerful, hacker-themed IVR platform built with Flask and Twilio for cybersecurity labs, telecom research, and authorized simulations. It features multi-level voice menus, DTMF + speech capture, call recording, real-time logging, and an aggressive hacker-style admin dashboard.
 
-🗃️ SQLite logging backend
+---
 
-🖥️ Hacker-style real-time admin dashboard
+## 📌 Features
 
-🔔 Telegram alerts on new inputs
+- ☎️ Multi-level IVR with menu routing
+- 🧠 DTMF and speech input capture
+- 📞 Outbound call trigger API
+- 🗂 SQLite call logging
+- 🖥️ Live admin dashboard
+- 📊 Runtime and menu analytics
+- 📡 Telegram alerts
+- 🔥 Hacker-style ASCII branding
 
-📊 Runtime statistics API
+---
 
-⚡ Single-file Flask backend (easy to deploy)
+## 📁 Repository Structure
 
-📁 Project Structure (Minimal & Clean)
-hackerseye-ivr/
+```
+
+HECC-IVR/
 │
-├── app.py
-├── requirements.txt
-├── README.md
+├── app.py                       # Main IVR + admin server
+├── requirements.txt             # Dependencies
+├── README.md                   # Project documentation
 └── templates/
-    └── admin.html
+└── admin.html               # Admin dashboard UI
 
+````
 
-No complex modules. No microservices. Everything runs from one main file.
+---
 
-⚙️ Requirements
+## 🚀 Quickstart
 
-Python 3.9+
+### 1. Clone the repo
 
-Twilio account (trial or paid)
+```bash
+git clone https://github.com/Hackers-Eye/HECC-IVR.git
+cd HECC-IVR
+````
 
-Public HTTPS URL for webhook (ngrok / cloud server)
+### 2. Install dependencies
 
-📦 Installation
-1️⃣ Clone Repository
-git clone https://github.com/your-username/hackerseye-ivr.git
-cd hackerseye-ivr
-
-2️⃣ Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
-🔐 Environment Configuration
+### 3. Create `.env`
 
-Create a .env file in project root:
+Create a file `.env` with:
 
-TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxx
-TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxx
-TWILIO_NUMBER=+1xxxxxxxxxx
-PUBLIC_BASE_URL=https://xxxx.ngrok-free.app
+```
+TWILIO_ACCOUNT_SID=ACXXXXXX
+TWILIO_AUTH_TOKEN=XXXXXX
+TWILIO_NUMBER=+1XXXXXXX
+PUBLIC_BASE_URL=https://yourpublicurl.ngrok.app
 
-TELEGRAM_BOT_TOKEN=xxxxxxxx
-ADMIN_CHAT_ID=xxxxxxxx
+TELEGRAM_BOT_TOKEN=XXXXXX
+ADMIN_CHAT_ID=XXXXXX
+```
 
+---
 
-PUBLIC_BASE_URL must be a public HTTPS URL pointing to your Flask server.
+## 🧠 Run Server
 
-▶️ Run the Server
+```bash
 python app.py
+```
 
+By default, the server listens on:
 
-You should see the Hackerseye ASCII banner in terminal.
-
-Default server:
-
+```
 http://localhost:5000
+```
 
-🌐 Expose Public URL (Required for Twilio)
+---
 
-Twilio must reach your server via HTTPS.
+## 🌍 Public URL
 
-Option — Using ngrok
+Twilio requires a public HTTPS endpoint. Use ngrok:
+
+```bash
 ngrok http 5000
+```
 
+Update `PUBLIC_BASE_URL` in `.env` accordingly.
 
-Update .env:
+---
 
-PUBLIC_BASE_URL=https://xxxx.ngrok-free.app
+## ☎️ Twilio Webhook Setup
 
+In the Twilio Console, set your number’s Voice webhook:
 
-Restart the server after updating.
+```
+POST        https://your-ngrok-url/voice
+```
 
-☎️ Twilio Webhook Setup
+---
 
-In Twilio Console:
+## 🖥️ Admin Dashboard
 
-Phone Numbers → Your Number → Voice Configuration
+Open:
 
-Set:
-
-When a call comes in:
-Webhook
-POST
-https://xxxx.ngrok-free.app/voice
-
-
-Save settings.
-
-🧑‍💻 Admin Dashboard
-
-Open in browser:
-
+```
 http://localhost:5000/admin
+```
 
+Search and monitor calls in real time.
 
-Dashboard shows:
+---
 
-Caller number
+## 📊 API Endpoints
 
-Menu selected
+| Route            | Purpose                    |
+| ---------------- | -------------------------- |
+| `/voice`         | IVR entry webhook (Twilio) |
+| `/menu`          | IVR menu routing           |
+| `/record/<menu>` | Save input                 |
+| `/call_user`     | Trigger outbound call      |
+| `/api/logs`      | Fetch call logs            |
+| `/api/stats`     | Runtime stats              |
+| `/health`        | Server health              |
 
-Speech transcript
+---
 
-Digits pressed
+## 📞 Outbound Call API
 
-IP address
+Invoke IVR on any number:
 
-Timestamp
-
-Auto-refreshes every 5 seconds.
-
-📊 API Endpoints
-✅ Health Check
-GET /health
-
-
-Returns uptime and call count.
-
-📈 Stats
-GET /api/stats
-
-
-Returns:
-
-Total calls
-
-Menu distribution
-
-Server uptime
-
-📄 Logs
-GET /api/logs?search=keyword
-
-
-Returns latest IVR entries (open access for lab usage).
-
-📞 Outbound Call Trigger
-
-Start IVR call programmatically:
-
+```
 POST /call_user
+```
 
+Body (form or JSON):
 
-Payload:
+```json
+{ "to": "+919xxxxxxxxx" }
+```
 
-{ "to": "+919XXXXXXXXX" }
+---
 
+## 📌 Notes
 
-Server will call the number and route to IVR.
+* Designed for research, labs, training, and authorized use.
+* Do **not** use for harassment, unauthorized recording, or illegal activities.
+* Always adhere to local laws and Twilio terms.
 
-🔒 Security Notes
+---
 
-Twilio webhook signature validation is enabled
+## 🛠️ Roadmap
 
-Admin dashboard is intentionally open for lab environments
+* 🎙️ Call playback in admin panel
+* 📈 Dashboard analytics and charts
+* 📁 Log export (CSV/JSON)
+* 🤖 AI speech intent tagging
+* 🚀 Docker deployment
 
-For public deployments, add authentication and firewall rules
+---
 
-⚠️ Legal & Ethical Use
+## 📜 License
 
-This project is intended only for:
+Distributed under the **MIT License**
+See `LICENSE` for details.
 
-Cybersecurity training labs
+---
 
-Telecom research
+## 📣 Contributing
 
-IVR testing environments
+We welcome contributions!
+Please open issues and pull requests to improve features, security, and UX.
 
-Awareness simulations
+---
 
-❌ Do NOT use for:
+## 🔥 Join Hackers Eye
 
-Surveillance
+Connect with our cybersecurity community for labs, challenges, and collaborative projects.
 
-Phishing
+```
 
-Scam calls
+---
 
-Recording without consent
+If you’d like, I can also generate:
 
-Always comply with:
+- A **LICENSE file** (MIT, Apache, GPL etc.)
+- A **GitHub Actions CI workflow**
+- A **project badge set**
+- A **contributing template**
+- A **demo GIF/hero image section**
 
-Local telecom laws
-
-Twilio Acceptable Use Policy
-
-Data protection regulations
-
-🧠 Future Roadmap
-
-Planned or possible upgrades:
-
-▶️ Call recording playback in dashboard
-
-📊 Analytics charts and heatmaps
-
-📁 Export logs to CSV/JSON
-
-🧠 Speech intent classification
-
-📞 Agent forwarding & call queues
-
-🐳 Docker production deployment
-
-👨‍💻 Community
-
-Hackerseye Cyber Community
+Just let me know what you want next!
+```
