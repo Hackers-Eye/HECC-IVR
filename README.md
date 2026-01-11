@@ -40,7 +40,7 @@ It supports multi-level voice menus, DTMF + speech input, call recording, outbou
 ## 📁 Repository Structure
 
 ```
-
+```bash
 HECC-IVR/
 │
 ├── app.py                 # Main Flask + Twilio IVR server
@@ -48,7 +48,7 @@ HECC-IVR/
 ├── README.md              # Documentation
 └── templates/
 └── admin.html         # Admin dashboard UI
-
+```
 ````
 
 ---
