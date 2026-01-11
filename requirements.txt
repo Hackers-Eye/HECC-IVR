@@ -1,0 +1,8 @@
+flask
+twilio
+requests
+python-dotenv
+gunicorn
+flask-cors
+pytest
+pytest-flask

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hackerseye IVR Control Node</title>
+
+<style>
+body { background:#02040a; color:#00ff9c; font-family:Courier New, monospace; margin:0; }
+header { text-align:center; padding:20px; border-bottom:1px solid #00ff9c; }
+pre { color:#00ff9c; text-shadow:0 0 10px #00ff9c; font-size:12px; }
+h2 { margin:5px 0; letter-spacing:2px; }
+.container { padding:15px; }
+input { width:100%; padding:10px; background:black; border:1px solid #00ff9c; color:#00ff9c; margin-bottom:15px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th, td { border:1px solid #00ff9c; padding:6px; }
+th { background:#001b12; }
+tr:hover { background:rgba(0,255,156,0.1); }
+.footer { text-align:center; padding:10px; font-size:11px; color:#00aa66; border-top:1px solid #00ff9c; }
+</style>
+</head>
+
+<body>
+
+<header>
+<pre>
+    _           _        _           _  _  _     _           _  _  _  _  _  _  _  _  _  _       _  _      _  _  _  _                     _  _  _  _  _  _           _  _  _  _  _  _    
+   (_)         (_)     _(_)_      _ (_)(_)(_) _ (_)       _ (_)(_)(_)(_)(_)(_)(_)(_)(_)(_) _   (_)(_)   _(_)(_)(_)(_)_                  (_)(_)(_)(_)(_)(_)_       _(_)(_)(_)(_)(_)(_)   
+   (_)         (_)   _(_) (_)_   (_)         (_)(_)    _ (_)   (_)            (_)         (_)  (_)(_)  (_)          (_)                 (_)              (_)_   _(_)  (_)               
+   (_) _  _  _ (_) _(_)     (_)_ (_)            (_) _ (_)      (_) _  _       (_) _  _  _ (_)    (_)   (_)_  _  _  _     _  _  _  _  _  (_) _  _           (_)_(_)    (_) _  _          
+   (_)(_)(_)(_)(_)(_) _  _  _ (_)(_)            (_)(_) _       (_)(_)(_)      (_)(_)(_)(_)      (_)      (_)(_)(_)(_)_  (_)(_)(_)(_)(_) (_)(_)(_)            (_)      (_)(_)(_)         
+   (_)         (_)(_)(_)(_)(_)(_)(_)          _ (_)   (_) _    (_)            (_)   (_) _               _           (_)                 (_)                  (_)      (_)               
+   (_)         (_)(_)         (_)(_) _  _  _ (_)(_)      (_) _ (_) _  _  _  _ (_)      (_) _           (_)_  _  _  _(_)                 (_) _  _  _  _       (_)      (_) _  _  _  _    
+   (_)         (_)(_)         (_)   (_)(_)(_)   (_)         (_)(_)(_)(_)(_)(_)(_)         (_)            (_)(_)(_)(_)                   (_)(_)(_)(_)(_)      (_)      (_)(_)(_)(_)(_)   
+                                                                                                                                                                                        
+                                                                                                                                                                                        
+                                                                               _  _  _  _           _  _  _  _  _                                                                       
+                                                                              (_)(_)(_)(_)         (_)(_)(_)(_)(_) _                                                                    
+                                                                                 (_)   (_)         (_)(_)         (_)                                                                   
+                                                                                 (_)   (_)_       _(_)(_) _  _  _ (_)                                                                   
+                                                                                 (_)     (_)     (_)  (_)(_)(_)(_)                                                                      
+                                                                                 (_)      (_)   (_)   (_)   (_) _                                                                       
+                                                                               _ (_) _     (_)_(_)    (_)      (_) _                                                                    
+                (_)(_)(_)      (_)      (_)         (_)     
+</pre>
+<h2>HACKERSEYE IVR — CONTROL NODE</h2>
+<div>[ STATUS: ONLINE ]</div>
+</header>
+
+<div class="container">
+
+<input id="search" placeholder="Search caller / digits / speech payload...">
+
+<table>
+<thead>
+<tr>
+<th>ID</th><th>Caller</th><th>Menu</th><th>Digits</th><th>Speech</th><th>IP</th><th>Time</th>
+</tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+
+</div>
+
+<div class="footer">Hackerseye Cyber Lab — Authorized Use Only</div>
+
+<script>
+async function loadLogs() {
+    const q = document.getElementById("search").value;
+    try {
+        const r = await fetch("/api/logs?search=" + encodeURIComponent(q));
+        const data = await r.json();
+
+        let html = "";
+        if (data.length === 0) {
+            html = "<tr><td colspan='7'>[ NO DATA ]</td></tr>";
+        } else {
+            data.forEach(x => {
+                html += `<tr>
+                    <td>${x.id}</td>
+                    <td>${x.caller}</td>
+                    <td>${x.menu}</td>
+                    <td>${x.digits || "-"}</td>
+                    <td>${(x.speech || "").substring(0,120)}</td>
+                    <td>${x.ip || "-"}</td>
+                    <td>${x.timestamp}</td>
+                </tr>`;
+            });
+        }
+        document.getElementById("rows").innerHTML = html;
+
+    } catch (e) {
+        document.getElementById("rows").innerHTML =
+            "<tr><td colspan='7'>[ SERVER OFFLINE ]</td></tr>";
+    }
+}
+
+document.getElementById("search").addEventListener("input", loadLogs);
+setInterval(loadLogs, 5000);
+loadLogs();
+</script>
+
+</body>
+</html>
