@@ -1,10 +1,12 @@
-Below is a polished, GitHub-ready, enhanced README.md with stronger structure, clearer setup, security notes, and contributor guidance. You can directly replace your current README with this.
 
+---
+
+```markdown
 # 🔥 HECC-IVR
 
 ## Hackers Eye Cyber Community — Interactive Voice Response (IVR) System
 
-HECC-IVR is a hacker-themed, research-grade IVR platform built with **Flask + Twilio** for cybersecurity labs, telecom testing, red-team simulations (authorized), and training environments.  
+HECC-IVR is a hacker-themed, research-grade IVR platform built with **Flask + Twilio** for cybersecurity labs, telecom testing, authorized red-team simulations, and training environments.  
 It supports multi-level voice menus, DTMF + speech input, call recording, outbound calling, real-time logging, and a live admin dashboard.
 
 > ⚠️ For **authorized and legal use only**. Misuse may violate telecom and privacy laws.
@@ -13,11 +15,11 @@ It supports multi-level voice menus, DTMF + speech input, call recording, outbou
 
 ## 🚀 Use Cases
 
-- 📞 Telecom & VoIP research
-- 🧪 Cybersecurity lab simulations
-- 🎓 Training demos for IVR systems
-- 🛡️ Blue-team call flow testing
-- 📊 Call analytics experiments
+- 📞 Telecom & VoIP research  
+- 🧪 Cybersecurity lab simulations  
+- 🎓 Training demos for IVR systems  
+- 🛡️ Blue-team call flow testing  
+- 📊 Call analytics experiments  
 
 ---
 
@@ -37,30 +39,29 @@ It supports multi-level voice menus, DTMF + speech input, call recording, outbou
 
 ## 📁 Repository Structure
 
-
+```
 
 HECC-IVR/
 │
-├── app.py # Main Flask + Twilio IVR server
-├── requirements.txt # Python dependencies
-├── README.md # Documentation
+├── app.py                 # Main Flask + Twilio IVR server
+├── requirements.txt       # Python dependencies
+├── README.md              # Documentation
 └── templates/
-└── admin.html # Admin dashboard UI
+└── admin.html         # Admin dashboard UI
 
-
-Minimal file structure for easy deployment and audits.
+````
 
 ---
 
 ## ⚙️ Tech Stack
 
-| Layer        | Technology |
-|-------------|------------|
-| Backend     | Flask (Python) |
-| Voice API   | Twilio Programmable Voice |
-| Database    | SQLite |
-| Frontend    | HTML + JS (Admin Panel) |
-| Alerts      | Telegram Bot API |
+| Layer      | Technology |
+|------------|------------|
+| Backend    | Flask (Python) |
+| Voice API  | Twilio Programmable Voice |
+| Database   | SQLite |
+| Frontend   | HTML + JS (Admin Panel) |
+| Alerts     | Telegram Bot API |
 
 ---
 
@@ -71,21 +72,27 @@ Minimal file structure for easy deployment and audits.
 ```bash
 git clone https://github.com/Hackers-Eye/HECC-IVR.git
 cd HECC-IVR
+````
 
-2️⃣ Install Dependencies
+### 2️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
+**Recommended: use virtual environment**
 
-Recommended: use virtual environment
-
+```bash
 python -m venv venv
 source venv/bin/activate   # Linux/Mac
 venv\Scripts\activate      # Windows
+```
 
-3️⃣ Environment Configuration
+### 3️⃣ Environment Configuration
 
-Create a .env file in project root:
+Create a `.env` file in project root:
 
+```
 TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxx
 TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxx
 TWILIO_NUMBER=+1xxxxxxxxxx
@@ -93,186 +100,183 @@ PUBLIC_BASE_URL=https://your-ngrok-url.ngrok.app
 
 TELEGRAM_BOT_TOKEN=xxxxxxxx
 ADMIN_CHAT_ID=xxxxxxxx
+```
 
+⚠️ Never commit `.env` to GitHub.
 
-⚠️ Never commit .env to GitHub.
+### 4️⃣ Run Server
 
-4️⃣ Run Server
+```bash
 python app.py
-
+```
 
 Server runs at:
 
+```
 http://127.0.0.1:5000
+```
 
-🌍 Public URL for Twilio
+---
 
-Twilio requires public HTTPS endpoints.
+## 🌍 Public URL for Twilio
 
-Use ngrok:
+Twilio requires **public HTTPS endpoints**.
 
+Use **ngrok**:
+
+```bash
 ngrok http 5000
+```
 
+Update in `.env`:
 
-Update in .env:
-
+```
 PUBLIC_BASE_URL=https://xxxx.ngrok.app
-
+```
 
 Restart server after change.
 
-☎️ Twilio Webhook Setup
+---
 
-In Twilio Console → Phone Number → Voice Configuration:
+## ☎️ Twilio Webhook Setup
 
-Webhook URL
+In **Twilio Console → Phone Number → Voice Configuration**:
 
-POST  https://your-ngrok-url/voice
+```
+POST https://your-ngrok-url/voice
+```
 
+Content Type: `application/x-www-form-urlencoded`
 
-Content Type: application/x-www-form-urlencoded
+---
 
-🖥️ Admin Dashboard
+## 🖥️ Admin Dashboard
 
 Open in browser:
 
+```
 http://localhost:5000/admin
+```
 
+### Capabilities
 
-Capabilities:
+* View live call logs
+* Monitor menu flow
+* See caller numbers and timestamps
+* Future versions: playback + charts
 
-View live call logs
+---
 
-Monitor menu flow
+## 📡 API Endpoints
 
-See caller numbers and timestamps
+| Endpoint         | Method | Description           |
+| ---------------- | ------ | --------------------- |
+| `/voice`         | POST   | IVR entry webhook     |
+| `/menu`          | POST   | Menu routing          |
+| `/record/<menu>` | POST   | Save user input       |
+| `/call_user`     | POST   | Trigger outbound call |
+| `/api/logs`      | GET    | Fetch call logs       |
+| `/api/stats`     | GET    | Runtime statistics    |
+| `/health`        | GET    | Health check          |
 
-Future versions: playback + charts
+---
 
-📡 API Endpoints
-Endpoint	Method	Description
-/voice	POST	IVR entry webhook
-/menu	POST	Menu routing
-/record/<menu>	POST	Save user input
-/call_user	POST	Trigger outbound call
-/api/logs	GET	Fetch call logs
-/api/stats	GET	Runtime statistics
-/health	GET	Health check
-📞 Outbound Call API
+## 📞 Outbound Call API
 
-Trigger IVR call to any number:
+### Endpoint
 
-Endpoint
+```
 POST /call_user
+```
 
-Body
+### Body
+
+```json
 {
   "to": "+919xxxxxxxxx"
 }
+```
 
-Use Cases
+### Use Cases
 
-Automated alerts
+* Automated alerts
+* Training call flows
+* Incident response drills
 
-Training call flows
+---
 
-Incident response drills
-
-🔐 Security & Compliance
+## 🔐 Security & Compliance
 
 This project is built for:
 
-✅ Authorized testing
-
-✅ Training environments
-
-✅ Legal research
+* ✅ Authorized testing
+* ✅ Training environments
+* ✅ Legal research
 
 Not allowed:
 
-❌ Harassment
-
-❌ Unauthorized recording
-
-❌ Phishing
-
-❌ Robocalling campaigns
+* ❌ Harassment
+* ❌ Unauthorized recording
+* ❌ Phishing
+* ❌ Robocalling campaigns
 
 Always comply with:
 
-Local telecom regulations
+* Local telecom regulations
+* * Data protection laws
+* Twilio Acceptable Use Policy
 
-Data protection laws
+---
 
-Twilio Acceptable Use Policy
+## 🛠 Configuration Tips
 
-🛠 Configuration Tips
+* Use strong Twilio API tokens
+* Restrict admin access behind VPN or authentication
+* Do not expose admin panel publicly
+* Rotate API credentials regularly
 
-Use strong Twilio API tokens
+---
 
-Restrict admin access behind VPN or auth (future roadmap)
+## 🧩 Roadmap
 
-Do not expose admin panel publicly
+* 🎙️ Call playback in dashboard
+* 📈 Graph-based analytics
+* 📁 CSV / JSON log export
+* 🔐 Admin authentication system
+* 🤖 AI-based intent detection
+* 🐳 Docker deployment support
+* ☁️ Cloud hosting templates
 
-Rotate API credentials regularly
+---
 
-🧩 Roadmap
+## 🤝 Contributing
 
-Planned enhancements:
-
-🎙️ Call playback in dashboard
-
-📈 Graph-based analytics
-
-📁 CSV / JSON log export
-
-🔐 Admin authentication system
-
-🤖 AI-based intent detection
-
-🐳 Docker deployment support
-
-☁️ Cloud hosting templates
-
-🤝 Contributing
-
-We welcome:
-
-Bug fixes
-
-Feature additions
-
-Security improvements
-
-UI enhancements
-
-Contribution Flow
-
-Fork repository
-
-Create feature branch
-
-Commit changes
-
-Submit Pull Request
+1. Fork repository
+2. Create feature branch
+3. Commit changes
+4. Submit Pull Request
 
 All contributions are reviewed.
 
-📜 License
+---
 
-Licensed under the MIT License
-You are free to use, modify, and distribute with attribution.
+## 📜 License
 
-🔥 Hackers Eye Cyber Community
+Licensed under the **MIT License**
+Free to use, modify, and distribute with attribution.
 
-Join us for:
+---
 
-Cybersecurity labs
+## 🔥 Hackers Eye Cyber Community
 
-Red-team learning projects
+* Cybersecurity labs
+* Red-team learning projects
+* IoT security research
+* Community CTF events
 
-IoT security research
+GitHub: [https://github.com/Hackers-Eye](https://github.com/Hackers-Eye)
 
-Community CTF events
+---
 
-GitHub: https://github.com/Hackers-Eye
+```
+```
