@@ -1,32 +1,30 @@
-🛡️ Hacker'S-Eye IVR Control Node
+🛡️ Hacker's-Eye IVR Control Node
 
-Aggressive-style, lab-grade Interactive Voice Response (IVR) system built with Flask + Twilio, designed for cybersecurity training, telecom research, and authorized simulations.
+Cybersecurity-focused Interactive Voice Response (IVR) system built for telecom labs, OSINT research, and authorized security simulations.
 
-This project provides a hacker-themed control panel, call logging, speech + DTMF capture, real-time monitoring, and outbound call triggering — all in a minimal single-file backend.
+Hackerseye IVR Control Node is a hacker-themed, lab-grade IVR platform built with Flask + Twilio that enables controlled call flows, speech and DTMF capture, real-time monitoring, and outbound call triggering — designed strictly for ethical and legal testing environments.
 
 🚀 Features
 
-☎️ Twilio-based IVR system
+☎️ Twilio-powered IVR engine
 
-🎯 Multi-level menu (Support / Training / Message)
+🧭 Multi-level menu system (Support / Training / Message)
 
-🔢 DTMF + 🎤 Speech input
+🔢 DTMF + 🎤 Speech recognition
 
 📞 Call recording enabled
 
-🗃️ SQLite call logging
+🗃️ SQLite logging backend
 
-📊 Runtime stats API
+🖥️ Hacker-style real-time admin dashboard
 
-🔔 Telegram alerts
+🔔 Telegram alerts on new inputs
 
-🧠 Menu analytics counters
+📊 Runtime statistics API
 
-🖥️ Hacker-style Admin Dashboard
+⚡ Single-file Flask backend (easy to deploy)
 
-🔥 Aggressive ASCII branding
-
-📁 Project Structure (Minimal)
+📁 Project Structure (Minimal & Clean)
 hackerseye-ivr/
 │
 ├── app.py
@@ -36,7 +34,7 @@ hackerseye-ivr/
     └── admin.html
 
 
-No extra services, no blueprints — fast to deploy and easy to modify.
+No complex modules. No microservices. Everything runs from one main file.
 
 ⚙️ Requirements
 
@@ -44,11 +42,11 @@ Python 3.9+
 
 Twilio account (trial or paid)
 
-Internet access (for Twilio webhooks)
+Public HTTPS URL for webhook (ngrok / cloud server)
 
 📦 Installation
-1️⃣ Clone or Download
-git clone https://github.com/yourname/hackerseye-ivr.git
+1️⃣ Clone Repository
+git clone https://github.com/your-username/hackerseye-ivr.git
 cd hackerseye-ivr
 
 2️⃣ Install Dependencies
@@ -56,7 +54,7 @@ pip install -r requirements.txt
 
 🔐 Environment Configuration
 
-Create a file named .env in project root:
+Create a .env file in project root:
 
 TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxx
 TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxx
@@ -75,30 +73,30 @@ python app.py
 
 You should see the Hackerseye ASCII banner in terminal.
 
-Server runs on:
+Default server:
 
 http://localhost:5000
 
 🌐 Expose Public URL (Required for Twilio)
 
-Twilio must reach your server over HTTPS.
+Twilio must reach your server via HTTPS.
 
-Option A — Using ngrok
+Option — Using ngrok
 ngrok http 5000
 
 
-Copy HTTPS URL and update:
+Update .env:
 
 PUBLIC_BASE_URL=https://xxxx.ngrok-free.app
 
 
-Restart server after updating .env.
+Restart the server after updating.
 
 ☎️ Twilio Webhook Setup
 
 In Twilio Console:
 
-Voice → Phone Numbers → Your Number
+Phone Numbers → Your Number → Voice Configuration
 
 Set:
 
@@ -108,7 +106,7 @@ POST
 https://xxxx.ngrok-free.app/voice
 
 
-Save configuration.
+Save settings.
 
 🧑‍💻 Admin Dashboard
 
@@ -123,7 +121,7 @@ Caller number
 
 Menu selected
 
-Speech text
+Speech transcript
 
 Digits pressed
 
@@ -131,56 +129,68 @@ IP address
 
 Timestamp
 
-Auto refresh every 5 seconds.
+Auto-refreshes every 5 seconds.
 
-📊 APIs
-🔹 Health Check
+📊 API Endpoints
+✅ Health Check
 GET /health
 
 
 Returns uptime and call count.
 
-🔹 Stats
+📈 Stats
 GET /api/stats
 
 
-Returns menu usage counters.
+Returns:
 
-🔹 Logs
+Total calls
+
+Menu distribution
+
+Server uptime
+
+📄 Logs
 GET /api/logs?search=keyword
 
 
-Returns recent call logs (open access for lab use).
+Returns latest IVR entries (open access for lab usage).
 
-📞 Outbound Call API
+📞 Outbound Call Trigger
 
-Trigger IVR call to any number:
+Start IVR call programmatically:
 
 POST /call_user
 
 
-Form or JSON body:
+Payload:
 
-{ "to": "+919xxxxxxxxx" }
+{ "to": "+919XXXXXXXXX" }
 
 
-Server will place a call and route to IVR.
+Server will call the number and route to IVR.
+
+🔒 Security Notes
+
+Twilio webhook signature validation is enabled
+
+Admin dashboard is intentionally open for lab environments
+
+For public deployments, add authentication and firewall rules
 
 ⚠️ Legal & Ethical Use
 
-This project is intended for:
+This project is intended only for:
 
-Cybersecurity labs
+Cybersecurity training labs
 
 Telecom research
 
-IVR testing
+IVR testing environments
 
-Awareness training simulations
+Awareness simulations
 
 ❌ Do NOT use for:
-
-Harassment
 
 Surveillance
 
@@ -194,27 +204,26 @@ Always comply with:
 
 Local telecom laws
 
-Twilio Terms of Service
+Twilio Acceptable Use Policy
 
-Consent requirements
+Data protection regulations
 
-🧠 Roadmap (Optional Upgrades)
+🧠 Future Roadmap
 
-Future expansions you can add:
+Planned or possible upgrades:
 
-▶️ Play call recordings in dashboard
+▶️ Call recording playback in dashboard
 
-📈 Call analytics graphs
+📊 Analytics charts and heatmaps
 
-📁 Export logs to CSV
+📁 Export logs to CSV/JSON
 
-🧠 Speech keyword classification
+🧠 Speech intent classification
 
-📞 Agent forwarding system
+📞 Agent forwarding & call queues
 
-🐳 Docker deployment
+🐳 Docker production deployment
 
-👨‍💻 Author
+👨‍💻 Community
 
 Hackerseye Cyber Community
-KRISH GHOSH
