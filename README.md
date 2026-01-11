@@ -29,7 +29,7 @@ A powerful, hacker-themed IVR platform built with Flask and Twilio for cybersecu
 
 ## 📁 Repository Structure
 
-```
+``
 
 HECC-IVR/
 │
@@ -39,7 +39,7 @@ HECC-IVR/
 └── templates/
 └── admin.html               # Admin dashboard UI
 
-````
+```
 
 ---
 
@@ -190,15 +190,3 @@ Connect with our cybersecurity community for labs, challenges, and collaborative
 
 ```
 
----
-
-If you’d like, I can also generate:
-
-- A **LICENSE file** (MIT, Apache, GPL etc.)
-- A **GitHub Actions CI workflow**
-- A **project badge set**
-- A **contributing template**
-- A **demo GIF/hero image section**
-
-Just let me know what you want next!
-```
